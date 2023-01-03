@@ -1,6 +1,6 @@
 # Async-Await
 * Arrived in Swift 5.5 during WWDC 2021
-* Can simplify our code and make our code easier to read
+* Can simplify our code and make code easier to read
 * An alternative to closures and Combine
 
 ## Bottom Line:
@@ -18,8 +18,12 @@ func getAllToDos(url: URL, completion: @escaping (Result<[ToDo], NetworkError>) 
     }.resume()
 }
 ```
+Closure Completion Downsides:
+1. You have to make sure you call the completion closure in each possible method exit
+2. Harder to read
+3. Retain cycles need to be avoided using weak references
 
-What is **async**?
+## async
 ```swift
 func fetchImages() async throws -> [UIImage] {
     // .. perform data request
@@ -32,11 +36,6 @@ func fetchImages(completion: (Result<[UIImage], Error>) -> Void) {
     // .. perform data request
 }
 ```
-
-Completion closure downsides:
-1. You have to make sure you call the completion closure in each possible method exit
-2. Harder to read
-3. Retain cycles need to be avoided using weak references
 
 What is **await**?
 One will never go without the other. *"Await is awaiting a callback from his buddy async."*
