@@ -1,13 +1,25 @@
 # Async-Await
-
-Let's Build That App: https://www.youtube.com/watch?v=bxCDL3kY8XA&t=1691s
-
 * Arrived in Swift 5.5 during WWDC 2021
-* Can simplify our code with async-await and make our asynchronous code easier to read
+* Can simplify our code and make our code easier to read
+* An alternative to closures and Combine
+
+## Bottom Line:
+It replaces code like this:
+```swift
+func getAllToDos(url: URL, completion: @escaping (Result<[ToDo], NetworkError>) -> Void) {
+    URLSession.shared.dataTask(with: url) { data, response, error in
+        guard let data = data, error == nil,
+              (response as? HTTPURLResponse)?.statusCode == 200 else {
+                completion(.failure(.badRequest))
+                return
+               }
+        let todos = try? JSONDecoder().decode([ToDo].self, from: data)
+        completion(.success(todos ?? []))
+    }.resume()
+}
+```
 
 What is **async**?
-
-#### Easier JSON Fetching; alternative to closures and Combine
 ```swift
 func fetchImages() async throws -> [UIImage] {
     // .. perform data request
